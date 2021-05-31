@@ -1,11 +1,9 @@
 package demo.test.ui.inputForms;
 
-import demo.config.inputforms.ConfigInputForms;
 import demo.constants.menuItems.LeftMenuSubOptions;
 import demo.jupiter.annotation.TestCaseId;
 import demo.jupiter.displayname.HumanizeNameWithTestCaseId;
 import demo.pageobjects.BaseApp;
-import org.aeonbits.owner.ConfigCache;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -29,7 +27,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SimpleFormDemoTest extends InputFormsBase {
 
     private static final Logger LOG = LogManager.getLogger(SimpleFormDemoTest.class);
-    private ConfigInputForms cfg = ConfigCache.getOrCreate(ConfigInputForms.class, System.getProperties( ));
 
 
     @TestCaseId(101)

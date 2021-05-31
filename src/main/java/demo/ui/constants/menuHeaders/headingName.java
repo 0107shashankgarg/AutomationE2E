@@ -9,7 +9,7 @@ public enum headingName {
     PROGRESS_BAR("Progress Bars"),
     ALERT_MODALS("Alerts & Modals"),
     LIST_BOX("List Box"),
-    OTHERS("Others");
+    OTHERS("others");
 
 
     private final String fieldName;

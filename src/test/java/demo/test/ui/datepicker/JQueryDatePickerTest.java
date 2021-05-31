@@ -1,4 +1,4 @@
-package demo.test.ui.inputForms;
+package demo.test.ui.datepicker;
 
 import com.codeborne.selenide.Condition;
 import demo.constants.CheckBoxAction;
@@ -16,9 +16,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @DisplayNameGeneration(HumanizeNameWithTestCaseId.class)
-class RadioButtonsDemoTest extends InputFormsBase {
+class JQueryDatePickerTest extends DatePickerBase {
 
-    private static final Logger LOG = LogManager.getLogger(RadioButtonsDemoTest.class);
+    private static final Logger LOG = LogManager.getLogger(JQueryDatePickerTest.class);
 
 
     @Test

@@ -18,7 +18,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 public class PageUtils extends BasePage {
 
 
-    private static ConfigMapping cfg = ConfigCache.getOrCreate(ConfigMapping.class, System.getProperties( ));
+    protected static ConfigMapping cfg = ConfigCache.getOrCreate(ConfigMapping.class, System.getProperties( ));
 
     public static void clearAndType(SelenideElement inputElement, String data) {
         inputElement.clear( );

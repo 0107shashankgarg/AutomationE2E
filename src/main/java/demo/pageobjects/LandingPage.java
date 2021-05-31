@@ -3,11 +3,11 @@ package demo.pageobjects;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import demo.pageobjects.basic.page.BasePage;
+import demo.utils.PageUtils;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class LandingPage extends BasePage {
+public class LandingPage extends PageUtils {
 
 
     private SelenideElement closePopup = $x("//a[@title='Close']");

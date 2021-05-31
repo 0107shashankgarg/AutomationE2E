@@ -3,11 +3,13 @@ package demo.pageobjects.inputforms;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import demo.constants.CheckBoxAction;
+import demo.constants.menuItems.LeftMenuSubOptions;
+import demo.pageobjects.BaseApp;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static demo.constants.CommonXPaths.MAINPANEL;
 
-public class CheckBoxDemo extends InputFormsBase {
+public class CheckBoxDemoPage extends InputFormsBasePage {
 
 
     //.is(Condition.checked)
@@ -19,12 +21,13 @@ public class CheckBoxDemo extends InputFormsBase {
     SelenideElement allCheckBoxCheked = mainArea.$x(".//input[@id = 'isChkd']");
 
 
-    public CheckBoxDemo actionOnFirstCheckBox(CheckBoxAction action) {
+    public CheckBoxDemoPage actionOnFirstCheckBox(CheckBoxAction action) {
+        BaseApp.appMainPage( ).clickMenuOption(LeftMenuSubOptions.CHECKBOXDEMO);
         checkCheckBox(firstCheckBox, action);
         return this;
     }
 
-    public CheckBoxDemo actionOnACheckBox(String checkBoxname, CheckBoxAction action) {
+    public CheckBoxDemoPage actionOnACheckBox(String checkBoxname, CheckBoxAction action) {
         checkCheckBox(getAllCheckbox.stream( )
                 .filter(ele -> ele.getText( ).equals(checkBoxname))
                 .findFirst( )
@@ -32,7 +35,7 @@ public class CheckBoxDemo extends InputFormsBase {
         return this;
     }
 
-    public CheckBoxDemo clikCheckAllButton() {
+    public CheckBoxDemoPage clikCheckAllButton() {
         checkAllButton.click( );
         return this;
     }

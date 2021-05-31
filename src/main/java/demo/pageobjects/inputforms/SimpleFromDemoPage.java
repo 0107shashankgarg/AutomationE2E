@@ -7,7 +7,7 @@ import org.aeonbits.owner.ConfigCache;
 import static com.codeborne.selenide.Selenide.$x;
 import static demo.constants.CommonXPaths.MAINPANEL;
 
-public class SimpleFromDemo extends InputFormsBase {
+public class SimpleFromDemoPage extends InputFormsBasePage {
 
     SelenideElement mainArea = $x(MAINPANEL);
     SelenideElement enterMessage = mainArea.$x(".//input[@id ='user-message']");
@@ -17,29 +17,29 @@ public class SimpleFromDemo extends InputFormsBase {
     SelenideElement enterb = mainArea.$x(".//input[@id ='sum2']");
     SelenideElement getTotalButton = mainArea.$x(".//button[normalize-space() ='Get Total']");
     SelenideElement getTotalReult = mainArea.$x(".//span[@id='displayvalue']");
-    private ConfigInputForms cfg = ConfigCache.getOrCreate(ConfigInputForms.class, System.getProperties( ));
+    protected ConfigInputForms cfg = ConfigCache.getOrCreate(ConfigInputForms.class, System.getProperties( ));
 
-    public SimpleFromDemo enterMessage(String message) {
+    public SimpleFromDemoPage enterMessage(String message) {
         enterText(enterMessage, message);
         return this;
     }
 
-    public SimpleFromDemo enterValueForA(int number) {
+    public SimpleFromDemoPage enterValueForA(int number) {
         enterText(entera, number);
         return this;
     }
 
-    public SimpleFromDemo enterValueForB(int number) {
+    public SimpleFromDemoPage enterValueForB(int number) {
         enterText(enterb, number);
         return this;
     }
 
-    public SimpleFromDemo clickShowMessage() {
+    public SimpleFromDemoPage clickShowMessage() {
         showmessageButton.click( );
         return this;
     }
 
-    public SimpleFromDemo clickgetTotalButton() {
+    public SimpleFromDemoPage clickgetTotalButton() {
         getTotalButton.click( );
         return this;
     }

@@ -4,10 +4,11 @@ package demo.pageobjects.inputforms;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import demo.constants.CheckBoxAction;
+import demo.utils.PageUtils;
 
 import static com.codeborne.selenide.Condition.checked;
 
-public class InputFormsBase {
+public class InputFormsBasePage extends PageUtils {
 
     public void enterText(SelenideElement ele, String text) {
         ele.shouldBe(Condition.visible).clear( );

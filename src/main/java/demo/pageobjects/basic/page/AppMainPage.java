@@ -4,10 +4,11 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import demo.constants.menuItems.LeftMenuOptions;
 import demo.constants.menuItems.LeftMenuSubOptions;
+import demo.utils.PageUtils;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class AppMainPage extends BasePage {
+public class AppMainPage extends PageUtils {
 
     SelenideElement leftPanel = $x("//div[@class='panel-body']");
     SelenideElement leftPanelOptionsBox = leftPanel.$x("./ul/li");

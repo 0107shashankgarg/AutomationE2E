@@ -16,9 +16,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @DisplayNameGeneration(HumanizeNameWithTestCaseId.class)
-class RadioButtonsDemoTest extends InputFormsBase {
+class JQuerySelectDropdownTest extends InputFormsBase {
 
-    private static final Logger LOG = LogManager.getLogger(RadioButtonsDemoTest.class);
+    private static final Logger LOG = LogManager.getLogger(JQuerySelectDropdownTest.class);
 
 
     @Test

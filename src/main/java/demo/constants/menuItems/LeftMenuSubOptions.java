@@ -22,7 +22,7 @@ public enum LeftMenuSubOptions {
 
     TABLEPAGINATION("Table Pagination", TABLE),
     TABLEDATASEARCH("Table Data Search", TABLE),
-    TABLEFILTER("Table Filter ", TABLE),
+    TABLEFILTER("Table Filter", TABLE),
     TABLESORTSEARCH("Table Sort & Search", TABLE),
     TABLEDATADOWNLOAD("Table Data Download", TABLE),
 

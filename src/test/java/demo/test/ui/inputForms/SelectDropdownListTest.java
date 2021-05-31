@@ -1,12 +1,10 @@
 package demo.test.ui.inputForms;
 
 import com.codeborne.selenide.Condition;
-import demo.config.inputforms.ConfigInputForms;
 import demo.constants.CheckBoxAction;
 import demo.constants.menuItems.LeftMenuSubOptions;
 import demo.jupiter.displayname.HumanizeNameWithTestCaseId;
 import demo.pageobjects.BaseApp;
-import org.aeonbits.owner.ConfigCache;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -21,7 +19,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SelectDropdownListTest extends InputFormsBase {
 
     private static final Logger LOG = LogManager.getLogger(SelectDropdownListTest.class);
-    private ConfigInputForms cfg = ConfigCache.getOrCreate(ConfigInputForms.class, System.getProperties( ));
 
 
     @Test

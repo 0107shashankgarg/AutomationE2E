@@ -9,7 +9,7 @@ public enum LeftMenuOptions {
     PROGRESSBARSANDSLIDERS("Progress Bars & Sliders"),
     ALERTSANDMODALS("Alerts & Modals"),
     LISTBOX("List Box"),
-    OTHERS("Others");
+    OTHERS("others");
 
 
     private final String menuOption;
