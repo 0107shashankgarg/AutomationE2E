@@ -1,54 +1,50 @@
 package demo.pageobjects.inputforms;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import demo.config.inputforms.ConfigInputForms;
-import org.aeonbits.owner.ConfigCache;
-
-import static com.codeborne.selenide.Selenide.$x;
-import static demo.constants.CommonXPaths.MAINPANEL;
+import demo.constants.inputforms.RadioButtonsName;
+import org.openqa.selenium.By;
 
 public class RadioButtonsDemoPage extends InputFormsBasePage {
 
-    protected ConfigInputForms cfg = ConfigCache.getOrCreate(ConfigInputForms.class, System.getProperties( ));
-    SelenideElement mainArea = $x(MAINPANEL);
-    SelenideElement enterMessage = mainArea.$x(".//input[@id ='user-message']");
-    SelenideElement showmessageButton = mainArea.$x(".//button[normalize-space() ='Show Message']");
-    SelenideElement displayEnterText = mainArea.$x(".//span[@id ='display']");
-    SelenideElement entera = mainArea.$x(".//input[@id ='sum1']");
-    SelenideElement enterb = mainArea.$x(".//input[@id ='sum2']");
-    SelenideElement getTotalButton = mainArea.$x(".//button[normalize-space() ='Get Total']");
-    SelenideElement getTotalReult = mainArea.$x(".//span[@id='displayvalue']");
 
-    public RadioButtonsDemoPage enterMessage(String message) {
-        enterText(enterMessage, message);
+    public SelenideElement getWhichNonGroupRadioButtonIsChecked = pannel1.$x(".//p[@class='radiobutton']");
+    public SelenideElement getSelectedRadioGroupValues = pannel2.$x(".//p[@class='groupradiobutton']");
+    ElementsCollection pannel1RadioButtons = pannel1.$$x(".//input");
+    SelenideElement getCheckedValueButton = pannel1.$x(".//button");
+    SelenideElement getValueButton = pannel2.$x(".//button");
+
+    public RadioButtonsDemoPage selectNonGroupRadioButton(RadioButtonsName radioButton) {
+        pannel1RadioButtons.stream( )
+                .filter(ele -> ele.getValue( ).equals(radioButton.getValue( )))
+                .findFirst( )
+                .get( )
+                .click( );
         return this;
     }
 
-    public RadioButtonsDemoPage enterValueForA(int number) {
-        enterText(entera, number);
+    public SelenideElement isCorrectNonGroupRadioChecked() {
+        return getWhichNonGroupRadioButtonIsChecked;
+    }
+
+    public RadioButtonsDemoPage clickGetCheckedValueButton() {
+        getCheckedValueButton.click( );
         return this;
     }
 
-    public RadioButtonsDemoPage enterValueForB(int number) {
-        enterText(enterb, number);
+
+    public RadioButtonsDemoPage selectGroupRadioButton(RadioButtonsName radioButton) {
+
+        pannel2.$(By.name(radioButton.getGroup( ).getRadioButtonGroup( ))).selectRadio(radioButton.getValue( ));
         return this;
     }
 
-    public RadioButtonsDemoPage clickShowMessage() {
-        showmessageButton.click( );
+    public RadioButtonsDemoPage clickGetValueButton() {
+        getValueButton.click( );
         return this;
     }
 
-    public RadioButtonsDemoPage clickgetTotalButton() {
-        getTotalButton.click( );
-        return this;
-    }
-
-    public boolean verifyEnteredMessage(String Enteredmessage) {
-        return displayEnterText.getText( ).equals(Enteredmessage);
-    }
-
-    public boolean verifytotalSum(int sum) {
-        return getTotalReult.getText( ).equals(String.valueOf(sum));
+    public SelenideElement isCorrectgetSelectedRadioGroupValues() {
+        return getSelectedRadioGroupValues;
     }
 }

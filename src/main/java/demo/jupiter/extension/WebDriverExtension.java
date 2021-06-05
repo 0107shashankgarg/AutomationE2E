@@ -2,7 +2,6 @@ package demo.jupiter.extension;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
 import demo.config.ConfigMapping;
 import org.aeonbits.owner.ConfigCache;
 import org.apache.logging.log4j.LogManager;
@@ -20,8 +19,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Optional;
 
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-
 public class WebDriverExtension implements BeforeEachCallback, AfterEachCallback {
 
     protected static final int TIMEOUT = 25000;
@@ -29,6 +26,7 @@ public class WebDriverExtension implements BeforeEachCallback, AfterEachCallback
     private static final String RESOLUTION_FULL_HD = "1920x1080x24";
     private static final Dimension DIMENSION_FULL_HD = new Dimension(1920, 1080);
     private ConfigMapping cfg = ConfigCache.getOrCreate(ConfigMapping.class, System.getProperties( ));
+    private WebDriver webDriver;
 
     @Override
     public void beforeEach(ExtensionContext extensionContext) throws Exception {
@@ -53,26 +51,41 @@ public class WebDriverExtension implements BeforeEachCallback, AfterEachCallback
     private void initDriver(String browser, String testName) {
         Configuration.screenshots = false;
         Configuration.timeout = TIMEOUT;
-        WebDriver webDriver;
+
         if ( cfg.isRemote( ) ) {
             webDriver = initRemoteDriver(browser, testName, true);
         } else {
+
+            localDriverSetup(browser);
+
+
+
 /*            ChromeOptions options = new ChromeOptions();
             options.addArguments("--start-maximized");
             WebDriverManager.chromedriver().setup();
             webDriver= new ChromeDriver(options);
-           webDriver.manage().window().maximize();*/
+           webDriver.manage().window().maximize();*//*
+
             Configuration.browser = browser;
             Configuration.startMaximized = true;
             //Configuration.timeout= Long.parseLong(System.getProperty("selenide.openBrowserTimeout", "600000"));
             System.setProperty("chromeoptions.args", "--no-proxy-server");
             //Stage
             // System.setProperty("webdriver.chrome.driver", workingDir);
-            Selenide.open( );
+Selenide.open();*/
 
         }
-        WebDriverRunner.setWebDriver(getWebDriver( ));
+        // WebDriverRunner.setWebDriver(getWebDriver());
     }
+
+    private void localDriverSetup(String requiredBrowserName) {
+        Configuration.browser = requiredBrowserName;
+        Configuration.startMaximized = true;
+        // Selenide.open();
+        //  WebDriverRunner.setWebDriver(getWebDriver());
+
+    }
+
 
     private RemoteWebDriver initRemoteDriver(String browser, String testName, boolean retryIfError) {
         DesiredCapabilities capability = new DesiredCapabilities( );

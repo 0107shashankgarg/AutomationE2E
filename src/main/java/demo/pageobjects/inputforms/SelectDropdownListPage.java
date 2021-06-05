@@ -1,53 +1,58 @@
 package demo.pageobjects.inputforms;
 
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import demo.constants.CheckBoxAction;
-
-import static com.codeborne.selenide.Selenide.$x;
-import static demo.constants.CommonXPaths.MAINPANEL;
+import demo.constants.inputforms.MultiSelectList;
+import demo.constants.inputforms.SelectList;
 
 public class SelectDropdownListPage extends InputFormsBasePage {
 
 
     //.is(Condition.checked)
-    SelenideElement mainArea = $x(MAINPANEL);
-    SelenideElement firstCheckBox = mainArea.$x(".//label[normalize-space() ='Click on this check box']");
-    SelenideElement successMessage = mainArea.$x(".//div[@id = 'txtAge']");
-    SelenideElement checkAllButton = mainArea.$x(".//input[@type='button']");
-    ElementsCollection getAllCheckbox = mainArea.$$x(".//label[contains(.,'Option')]");
-    SelenideElement allCheckBoxCheked = mainArea.$x(".//input[@id = 'isChkd']");
+    SelenideElement selectList = pannel1.$x(".//select");
+    SelenideElement selectMultiList = pannel2.$x(".//select");
 
 
-    public SelectDropdownListPage actionOnFirstCheckBox(CheckBoxAction action) {
-        checkCheckBox(firstCheckBox, action);
+    public SelenideElement SelectSingleValueFromList(SelectList selectListValue) {
+        selectList.selectOptionByValue(selectListValue.getDayOfWeek( ));
+        return selectList;
+
+
+    }
+
+    public SelenideElement SelectSingleValueFromMultiList(MultiSelectList multiSelectListValue) {
+        selectMultiList.selectOptionByValue(multiSelectListValue.getUSCityName( ));
+        return selectMultiList;
+
+    }
+
+
+    public String isCorrectSingleListValueSelected() {
+        return selectList.getSelectedValue( );
+
+
+    }
+
+    public String isCorrectMultiListValueSelected() {
+        return selectList.getSelectedValue( );
+
+
+    }
+
+    public SelenideElement SelectMultipleValueFromMultiList(MultiSelectList... multiSelectListValue) {
+
+        for (MultiSelectList selOption : multiSelectListValue) {
+            selectMultiList.selectOptionByValue(selOption.getUSCityName( ));
+        }
+
+        return selectMultiList;
+    }
+
+
+    public SelectDropdownListPage SelectAllValueFromMultiList(Enum allVlues) {
+
+        selectList.selectOptionByValue("bb", "c");
         return this;
-    }
-
-    public SelectDropdownListPage actionOnACheckBox(String checkBoxname, CheckBoxAction action) {
-        checkCheckBox(getAllCheckbox.stream( )
-                .filter(ele -> ele.getText( ).equals(checkBoxname))
-                .findFirst( )
-                .get( ), action);
-        return this;
-    }
-
-    public SelectDropdownListPage clikCheckAllButton() {
-        checkAllButton.click( );
-        return this;
-    }
-
-    public boolean verifyIfCheckBoxIsChecked(String checkBoxName) {
-        return (getAllCheckbox.stream( ).anyMatch(ele -> ele.getText( ).equals(checkBoxName)));
 
     }
 
-    public boolean verifyIfAllCheckBoxInGroupChecked() {
-        return (allCheckBoxCheked.getValue( ).equals("true"));
-
-    }
-
-    public SelenideElement isSuccessMessageCorrect() {
-        return successMessage;
-    }
 }
