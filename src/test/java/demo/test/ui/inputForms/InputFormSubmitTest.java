@@ -1,61 +1,51 @@
 package demo.test.ui.inputForms;
 
-import com.codeborne.selenide.Condition;
-import demo.constants.CheckBoxAction;
+
+import com.codeborne.selenide.junit5.SoftAssertsExtension;
+import demo.config.inputforms.ConfigInputSubmitForms;
+import demo.constants.inputforms.InputFormSubmit;
 import demo.constants.menuItems.LeftMenuSubOptions;
 import demo.jupiter.displayname.HumanizeNameWithTestCaseId;
 import demo.pageobjects.BaseApp;
+import org.aeonbits.owner.ConfigCache;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.time.Duration;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.codeborne.selenide.Condition.enabled;
 
 
 @DisplayNameGeneration(HumanizeNameWithTestCaseId.class)
+@ExtendWith({SoftAssertsExtension.class})
+
 class InputFormSubmitTest extends InputFormsBase {
 
     private static final Logger LOG = LogManager.getLogger(InputFormSubmitTest.class);
+    protected ConfigInputSubmitForms cfgForm = ConfigCache.getOrCreate(ConfigInputSubmitForms.class, System.getProperties( ));
 
     @Test
-    void singleCheckBoxShouldBeCondition() {
+    void submitFormSuccessfully() {
 
-        BaseApp.appMainPage( ).clickMenuOption(LeftMenuSubOptions.CHECKBOXDEMO);
+        BaseApp.appMainPage( ).clickMenuOption(LeftMenuSubOptions.INPUTFORMSUBMIT);
 
-        BaseApp.checkBoxDemo( )
-                .actionOnFirstCheckBox(CheckBoxAction.CHECK)
-                .isSuccessMessageCorrect( ).shouldBe(Condition.value("to fail"), Duration.ofSeconds(5));
-    }
-
-    @Test
-    void singleCheckBoxAssert() {
-
-        BaseApp.appMainPage( ).clickMenuOption(LeftMenuSubOptions.CHECKBOXDEMO);
-
-        assertThat(BaseApp.checkBoxDemo( )
-                .actionOnFirstCheckBox(CheckBoxAction.CHECK)
-                .isSuccessMessageCorrect( )
-                .getText( )
-                .equals("to fial")).withFailMessage("Expected Message was:Success - Check box is checked but its " + BaseApp
-                .checkBoxDemo( )
-                .isSuccessMessageCorrect( )
-                .getText( )).isTrue( );
+        BaseApp.inputFormSubmitPage( )
+                .enterValeInForm(InputFormSubmit.FIRSTNAME, cfgForm.getFirstName( ))
+                .enterValeInForm(InputFormSubmit.LASTNAME, cfgForm.getLastName( ))
+                .enterValeInForm(InputFormSubmit.EMAILADDRESS, cfgForm.getEmail( ))
+                .enterValeInForm(InputFormSubmit.PHONE, cfgForm.getPhone( ))
+                .enterValeInForm(InputFormSubmit.ADDRESS, cfgForm.getAddress( ))
+                .enterValeInForm(InputFormSubmit.CITY, cfgForm.getCity( ))
+                .enterValeInForm(InputFormSubmit.STATE, cfgForm.getState( ))
+                .enterValeInForm(InputFormSubmit.ZIPCODE, cfgForm.getZipcode( ))
+                .enterValeInForm(InputFormSubmit.WEBSITE, cfgForm.getwebsiteDomain( ))
+                .enterValeInForm(InputFormSubmit.HOSTING, "yes")
+                .enterValeInForm(InputFormSubmit.PROJECTDESCRIPTION, cfgForm.getProjectDescription( ))
+                .sendButton.shouldBe(enabled);
 
     }
 
-
-    @Test
-    void twoMultipleCheckBox() {
-
-        BaseApp.appMainPage( ).clickMenuOption(LeftMenuSubOptions.CHECKBOXDEMO);
-        assertThat(BaseApp.checkBoxDemo( )
-                .clikCheckAllButton( )
-                .verifyIfAllCheckBoxInGroupChecked( )).withFailMessage("Not all check box are chekded")
-                .isTrue( );
-    }
 }
 
 

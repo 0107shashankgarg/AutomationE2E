@@ -1,53 +1,61 @@
 package demo.pageobjects.inputforms;
 
-import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import demo.constants.CheckBoxAction;
+import com.codeborne.selenide.junit5.SoftAssertsExtension;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static demo.constants.CommonXPaths.MAINPANEL;
 
+@ExtendWith({SoftAssertsExtension.class})
 public class JQuerySelectDropdownPage extends InputFormsBasePage {
 
 
     //.is(Condition.checked)
     SelenideElement mainArea = $x(MAINPANEL);
-    SelenideElement firstCheckBox = mainArea.$x(".//label[normalize-space() ='Click on this check box']");
-    SelenideElement successMessage = mainArea.$x(".//div[@id = 'txtAge']");
-    SelenideElement checkAllButton = mainArea.$x(".//input[@type='button']");
-    ElementsCollection getAllCheckbox = mainArea.$$x(".//label[contains(.,'Option')]");
-    SelenideElement allCheckBoxCheked = mainArea.$x(".//input[@id = 'isChkd']");
+    SelenideElement countrySelectBox = mainArea.$x(".//span[@id='select2-country-container']").parent( );
+    SelenideElement countryValues = $x(".//ul[@id='select2-country-results']");
+    SelenideElement statesSelectBox = mainArea.$x(".//input[@class='select2-search__field']");
+    SelenideElement stateValue = $x("//ul[@class='select2-results__options']");
+    SelenideElement territoriesSelectBox = mainArea.$$x(".//span[@class='select2-selection__rendered']").get(1);
+    SelenideElement territories = stateValue;
+    SelenideElement selectAFile = mainArea.$x(".//select[@name='files']");
 
 
-    public JQuerySelectDropdownPage actionOnFirstCheckBox(CheckBoxAction action) {
-        checkCheckBox(firstCheckBox, action);
+    public JQuerySelectDropdownPage selectCountry(String Country) {
+        selectValuesByliInDropDown(countrySelectBox, countryValues, Country);
+
         return this;
     }
 
-    public JQuerySelectDropdownPage actionOnACheckBox(String checkBoxname, CheckBoxAction action) {
-        checkCheckBox(getAllCheckbox.stream( )
-                .filter(ele -> ele.getText( ).equals(checkBoxname))
-                .findFirst( )
-                .get( ), action);
+    public JQuerySelectDropdownPage selectState(String... territoriesvalues) {
+        selectValuesByliInDropDown(statesSelectBox, stateValue, territoriesvalues);
         return this;
     }
 
-    public JQuerySelectDropdownPage clikCheckAllButton() {
-        checkAllButton.click( );
+    public JQuerySelectDropdownPage selectTerritories(String... territoriesvalues) {
+        selectValuesByliInDropDown(territoriesSelectBox, territories, territoriesvalues);
         return this;
     }
 
-    public boolean verifyIfCheckBoxIsChecked(String checkBoxName) {
-        return (getAllCheckbox.stream( ).anyMatch(ele -> ele.getText( ).equals(checkBoxName)));
-
+    public JQuerySelectDropdownPage selectCategory(String catergory) {
+        selectAFile.selectOption(catergory);
+        return this;
     }
 
-    public boolean verifyIfAllCheckBoxInGroupChecked() {
-        return (allCheckBoxCheked.getValue( ).equals("true"));
 
+    private void selectValuesByliInDropDown(SelenideElement selectBox, SelenideElement values, String... valuesToSelect) {
+        for (String str : valuesToSelect) {
+            selectBox.click( );
+            String countryXPATH = ".//li[normalize-space(.) = '" + str + "']";
+            values.$x(countryXPATH).shouldNotHave(Condition.attribute("aria-disabled")
+                    .because("The option u wish to select is disabled"), Duration.ofSeconds(2)).click( );
+
+
+        }
     }
 
-    public SelenideElement isSuccessMessageCorrect() {
-        return successMessage;
-    }
 }

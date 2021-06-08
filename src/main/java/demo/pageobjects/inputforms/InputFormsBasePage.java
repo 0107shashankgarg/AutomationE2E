@@ -9,6 +9,7 @@ import demo.utils.PageUtils;
 import org.aeonbits.owner.ConfigCache;
 
 import static com.codeborne.selenide.Condition.checked;
+import static com.codeborne.selenide.Condition.visible;
 
 public class InputFormsBasePage extends PageUtils {
 
@@ -16,7 +17,7 @@ public class InputFormsBasePage extends PageUtils {
 
 
     public void enterText(SelenideElement ele, String text) {
-        ele.shouldBe(Condition.visible).clear( );
+        ele.shouldBe(visible).clear( );
         ele.sendKeys(text);
     }
 

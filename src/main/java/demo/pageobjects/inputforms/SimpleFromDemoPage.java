@@ -1,5 +1,6 @@
 package demo.pageobjects.inputforms;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import demo.config.inputforms.ConfigInputForms;
 import org.aeonbits.owner.ConfigCache;
@@ -20,6 +21,7 @@ public class SimpleFromDemoPage extends InputFormsBasePage {
     protected ConfigInputForms cfg = ConfigCache.getOrCreate(ConfigInputForms.class, System.getProperties( ));
 
     public SimpleFromDemoPage enterMessage(String message) {
+        enterMessage.shouldBe(Condition.visible);
         enterText(enterMessage, message);
         return this;
     }
