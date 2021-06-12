@@ -1,7 +1,6 @@
 package demo.test.ui.datepicker;
 
-import com.codeborne.selenide.Condition;
-import demo.constants.CheckBoxAction;
+
 import demo.constants.menuItems.LeftMenuSubOptions;
 import demo.jupiter.displayname.HumanizeNameWithTestCaseId;
 import demo.pageobjects.BaseApp;
@@ -10,9 +9,11 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 
-import java.time.Duration;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.codeborne.selenide.Condition.value;
 
 
 @DisplayNameGeneration(HumanizeNameWithTestCaseId.class)
@@ -22,41 +23,39 @@ class BootstrapDatePickerTest extends DatePickerBase {
 
 
     @Test
-    void singleCheckBoxShouldBeCondition() {
+    void selectTodaysDateForBootStrapDatePicker() {
 
-        BaseApp.appMainPage( ).clickMenuOption(LeftMenuSubOptions.CHECKBOXDEMO);
 
-        BaseApp.checkBoxDemo( )
-                .actionOnFirstCheckBox(CheckBoxAction.CHECK)
-                .isSuccessMessageCorrect( ).shouldBe(Condition.value("to fail"), Duration.ofSeconds(5));
+        BaseApp.appMainPage( ).clickMenuOption(LeftMenuSubOptions.BOOTSTRAPDATEPICKER);
+        BaseApp.bootstrapDatePickerPage( )
+                .selectTodaysdate( ).selectedDateValue
+                .shouldHave(value(ZonedDateTime.now( ).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                        .because("Current time and date is not selected"));
+
+    }
+
+    /* Still need to improve this as we need more generic way to handel years*/
+    // TODO: 6/10/21
+    @Test
+    void selectDateForBootStrapDatePicker() {
+
+        LocalDate date = LocalDate.of(2015, 7, 15);
+        String expectedDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        BaseApp.appMainPage( ).clickMenuOption(LeftMenuSubOptions.BOOTSTRAPDATEPICKER);
+        BaseApp.bootstrapDatePickerPage( )
+                .selectDate(date).selectedDateValue.shouldHave(value(expectedDate));
+
     }
 
     @Test
-    void singleCheckBoxAssert() {
-
-        BaseApp.appMainPage( ).clickMenuOption(LeftMenuSubOptions.CHECKBOXDEMO);
-
-        assertThat(BaseApp.checkBoxDemo( )
-                .actionOnFirstCheckBox(CheckBoxAction.CHECK)
-                .isSuccessMessageCorrect( )
-                .getText( )
-                .equals("to fial")).withFailMessage("Expected Message was:Success - Check box is checked but its " + BaseApp
-                .checkBoxDemo( )
-                .isSuccessMessageCorrect( )
-                .getText( )).isTrue( );
+    void selectDateRange() {
+        LocalDate stratDate = LocalDate.of(2015, 7, 15);
+        LocalDate endDate = LocalDate.of(2016, 7, 15);
+        BaseApp.appMainPage( ).clickMenuOption(LeftMenuSubOptions.BOOTSTRAPDATEPICKER);
+        BaseApp.bootstrapDatePickerPage( ).enterStartEndDate(stratDate, endDate);
 
     }
 
-
-    @Test
-    void twoMultipleCheckBox() {
-
-        BaseApp.appMainPage( ).clickMenuOption(LeftMenuSubOptions.CHECKBOXDEMO);
-        assertThat(BaseApp.checkBoxDemo( )
-                .clikCheckAllButton( )
-                .verifyIfAllCheckBoxInGroupChecked( )).withFailMessage("Not all check box are chekded")
-                .isTrue( );
-    }
 }
 
 

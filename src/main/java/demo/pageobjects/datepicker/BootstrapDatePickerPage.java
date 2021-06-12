@@ -1,54 +1,80 @@
 package demo.pageobjects.datepicker;
 
-import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import demo.constants.CheckBoxAction;
-import demo.pageobjects.table.TableBasePage;
+
+import java.time.LocalDate;
+import java.time.Month;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static demo.constants.CommonXPaths.MAINPANEL;
 
-public class BootstrapDatePickerPage extends TableBasePage {
+public class BootstrapDatePickerPage extends DatePickerBasePage {
 
 
-    //.is(Condition.checked)
+
     SelenideElement mainArea = $x(MAINPANEL);
-    SelenideElement firstCheckBox = mainArea.$x(".//label[normalize-space() ='Click on this check box']");
-    SelenideElement successMessage = mainArea.$x(".//div[@id = 'txtAge']");
-    SelenideElement checkAllButton = mainArea.$x(".//input[@type='button']");
-    ElementsCollection getAllCheckbox = mainArea.$$x(".//label[contains(.,'Option')]");
-    SelenideElement allCheckBoxCheked = mainArea.$x(".//input[@id = 'isChkd']");
+    public SelenideElement selectedDateValue = $x("//div[@class='input-group date']//input");
+    SelenideElement bootStrapDatePickerIcon = mainArea.$x(".//i[@class='glyphicon glyphicon-th']");
+    SelenideElement startDateSelector = $x("//input[@placeholder ='Start date']");
+    SelenideElement endDateSelector = $x("//input[@placeholder ='End date']");
 
+    private void openBoostrapDatePicker() {
+        bootStrapDatePickerIcon.click( );
 
-    public BootstrapDatePickerPage actionOnFirstCheckBox(CheckBoxAction action) {
-        checkCheckBox(firstCheckBox, action);
+    }
+
+    public BootstrapDatePickerPage enterStartEndDate(LocalDate startDate, LocalDate endDate) {
+        startDateSelector.click( );
+        selectADate(startDate);
+        endDateSelector.click( );
+
         return this;
     }
 
-    public BootstrapDatePickerPage actionOnACheckBox(String checkBoxname, CheckBoxAction action) {
-        checkCheckBox(getAllCheckbox.stream( )
-                .filter(ele -> ele.getText( ).equals(checkBoxname))
-                .findFirst( )
-                .get( ), action);
+    public BootstrapDatePickerPage selectTodaysdate() {
+
+        openBoostrapDatePicker( );
+        datePickerCurrentDay.click( );
+
         return this;
     }
 
-    public BootstrapDatePickerPage clikCheckAllButton() {
-        checkAllButton.click( );
+    public BootstrapDatePickerPage selectDate(LocalDate date) {
+        openBoostrapDatePicker( );
+        selectADate(date);
         return this;
     }
 
-    public boolean verifyIfCheckBoxIsChecked(String checkBoxName) {
-        return (getAllCheckbox.stream( ).anyMatch(ele -> ele.getText( ).equals(checkBoxName)));
+    private void selectADate(LocalDate date) {
+
+
+        selectYear(date.getYear( ));
+        selectMonth(date.getMonth( ));
+        selectDay(date.getDayOfMonth( ));
 
     }
 
-    public boolean verifyIfAllCheckBoxInGroupChecked() {
-        return (allCheckBoxCheked.getValue( ).equals("true"));
+
+    private void selectYear(int year) {
+        datePickerMonthAndYear.filter(Condition.visible).first( ).click( );
+        datePickerMonthAndYear.filter(Condition.visible).first( ).click( );
+        bootstrapDatePickerPopupYears.$x(".//th[@class='prev']").click( );
+        datePickerYear.filter(Condition.text(String.valueOf(year))).first( ).click( );
 
     }
 
-    public SelenideElement isSuccessMessageCorrect() {
-        return successMessage;
+    private void selectMonth(Month month) {
+        datePickerMonths.filter(Condition.text(month.toString( ).substring(0, 3))).first( ).click( );
+
+
     }
+
+    private void selectDay(int day) {
+        datePickerDays.filter(Condition.text(String.valueOf(day))).first( ).click( );
+
+
+    }
+
+
 }

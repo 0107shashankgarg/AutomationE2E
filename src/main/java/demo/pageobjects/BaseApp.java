@@ -2,6 +2,7 @@ package demo.pageobjects;
 
 
 import demo.pageobjects.basic.page.AppMainPage;
+import demo.pageobjects.datepicker.BootstrapDatePickerPage;
 import demo.pageobjects.datepicker.DatePickerBasePage;
 import demo.pageobjects.datepicker.JQueryDatePickerPage;
 import demo.pageobjects.inputforms.*;
@@ -57,6 +58,9 @@ public class BaseApp {
         return page(SelectDropdownListPage.class);
     }
 
+    public static BootstrapDatePickerPage bootstrapDatePickerPage() {
+        return page(BootstrapDatePickerPage.class);
+    }
     public static DatePickerBasePage datePickerBasePage() {
         return page(DatePickerBasePage.class);
     }

@@ -2,7 +2,6 @@ package demo.pageobjects.datepicker;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import demo.constants.CheckBoxAction;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static demo.constants.CommonXPaths.MAINPANEL;
@@ -19,35 +18,5 @@ public class JQueryDatePickerPage extends DatePickerBasePage {
     SelenideElement allCheckBoxCheked = mainArea.$x(".//input[@id = 'isChkd']");
 
 
-    public JQueryDatePickerPage actionOnFirstCheckBox(CheckBoxAction action) {
-        checkCheckBox(firstCheckBox, action);
-        return this;
-    }
 
-    public JQueryDatePickerPage actionOnACheckBox(String checkBoxname, CheckBoxAction action) {
-        checkCheckBox(getAllCheckbox.stream( )
-                .filter(ele -> ele.getText( ).equals(checkBoxname))
-                .findFirst( )
-                .get( ), action);
-        return this;
-    }
-
-    public JQueryDatePickerPage clikCheckAllButton() {
-        checkAllButton.click( );
-        return this;
-    }
-
-    public boolean verifyIfCheckBoxIsChecked(String checkBoxName) {
-        return (getAllCheckbox.stream( ).anyMatch(ele -> ele.getText( ).equals(checkBoxName)));
-
-    }
-
-    public boolean verifyIfAllCheckBoxInGroupChecked() {
-        return (allCheckBoxCheked.getValue( ).equals("true"));
-
-    }
-
-    public SelenideElement isSuccessMessageCorrect() {
-        return successMessage;
-    }
 }

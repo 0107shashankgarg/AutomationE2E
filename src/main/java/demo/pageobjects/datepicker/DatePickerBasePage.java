@@ -1,41 +1,47 @@
 package demo.pageobjects.datepicker;
 
 
-import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import demo.constants.CheckBoxAction;
 import demo.utils.PageUtils;
 
-import static com.codeborne.selenide.Condition.checked;
+import static com.codeborne.selenide.Selenide.$$x;
+import static com.codeborne.selenide.Selenide.$x;
+
 
 public class DatePickerBasePage extends PageUtils {
 
-    public void enterText(SelenideElement ele, String text) {
-        ele.shouldBe(Condition.visible).clear( );
-        ele.sendKeys(text);
-    }
-
-    public void enterText(SelenideElement ele, int number) {
-        ele.shouldBe(Condition.visible).clear( );
-        ele.setValue(String.valueOf(number));
-    }
-
-    public void checkCheckBox(SelenideElement ele, CheckBoxAction action) {
-        switch (action) {
-            case CHECK:
-                ele.shouldNotBe(checked).click( );
-                break;
-
-            case TOGGLE:
-                ele.click( );
-                break;
-
-            case UNCHECK:
-                ele.shouldBe(checked).click( );
-                break;
+    SelenideElement bootstrapDatePickerPopupDays = $x("//div[@class='datepicker-days']");
+    SelenideElement bootstrapDatePickerPopupMonths = $x("//div[@class='datepicker-months']");
+    SelenideElement bootstrapDatePickerPopupYears = $x("//div[@class='datepicker-years']");
+    SelenideElement bootstrapDatePickerPopupCenturies = $x("//div[@class='datepicker-centuries']");
 
 
-        }
+    ElementsCollection datePickerMonthAndYear = $$x(".//th[@class='datepicker-switch']");
+    SelenideElement datePickerClear = $x("//th[@class='clear']");
+    SelenideElement datePickerSelectToday = $x("//tr//th[@class='Today']");
 
-    }
+
+    ElementsCollection datePickerDays = bootstrapDatePickerPopupDays.$$x(".//tr//td[@class ='day']");
+    ElementsCollection datePickerFutureDays = bootstrapDatePickerPopupDays.$$x(".//tr//td[@class ='disabled day']");
+    SelenideElement datePickerCurrentDay = bootstrapDatePickerPopupDays.$x(".//tr//td[@class ='today day']");
+
+
+    ElementsCollection datePickerMonths = bootstrapDatePickerPopupMonths.$$x(".//span[@class='month']");
+    ElementsCollection datePickerFutureMonths = bootstrapDatePickerPopupMonths.$$x(".//span[@class='month disabled']");
+    SelenideElement datePickerCurrentMonth = bootstrapDatePickerPopupMonths.$x(".//span[@class='month focused']");
+
+
+    ElementsCollection datePickerYear = bootstrapDatePickerPopupYears.$$x(".//span[@class='year']");
+    ElementsCollection datePickerFutureYear = bootstrapDatePickerPopupMonths.$$x(".//span[@class='month disabled']");
+    SelenideElement datePickerCurrentYear = bootstrapDatePickerPopupYears.$x(".//span[@class='year focused']");
+
+    //th[@class='prev']
+
+
+    //div[@class='datepicker-months']//span[@class='month']
+    //div[@class='datepicker-days']//tbody//tr//td[@class ='day' and (text() = '1')]
+
+
+
 }

@@ -8,4 +8,5 @@ import org.aeonbits.owner.ConfigCache;
 public class TableBase extends UIBaseTest {
     protected ConfigInputForms cfg = ConfigCache.getOrCreate(ConfigInputForms.class, System.getProperties( ));
 
+
 }
