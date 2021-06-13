@@ -81,7 +81,7 @@ Selenide.open();*/
     private void localDriverSetup(String requiredBrowserName) {
         Configuration.browser = requiredBrowserName;
         Configuration.startMaximized = true;
-        // Selenide.open();
+        // ConfigMappingBase;
         //  WebDriverRunner.setWebDriver(getWebDriver());
 
     }

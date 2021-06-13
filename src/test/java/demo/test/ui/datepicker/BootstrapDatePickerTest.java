@@ -40,6 +40,7 @@ class BootstrapDatePickerTest extends DatePickerBase {
     void selectDateForBootStrapDatePicker() {
 
         LocalDate date = LocalDate.of(2015, 7, 15);
+
         String expectedDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         BaseApp.appMainPage( ).clickMenuOption(LeftMenuSubOptions.BOOTSTRAPDATEPICKER);
         BaseApp.bootstrapDatePickerPage( )
