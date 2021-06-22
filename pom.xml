@@ -18,7 +18,7 @@
         <!-- End Internal dependencies -->
 
         <junit.jupiter.version>5.7.0</junit.jupiter.version>
-        <hamcrest-library.version>2.1</hamcrest-library.version>
+        <hamcrest-library.version>2.2</hamcrest-library.version>
 
         <selenide.version>5.21.0</selenide.version>
         <properties.version>1.6</properties.version>
@@ -37,21 +37,39 @@
         <allure-maven.version>2.10.0</allure-maven.version>
         <allure-junit5.version>2.14.0</allure-junit5.version>
         <allure.java.commons.vesion>2.14.0</allure.java.commons.vesion>
+        <rest.assured.version>4.4.0</rest.assured.version>
     </properties>
 
     <dependencies>
-        <!--        <dependency>
-                    <groupId>org.hamcrest</groupId>
-                    <artifactId>hamcrest-library</artifactId>
-                    <version>${hamcrest-library.version}</version>
-                    <scope>test</scope>
-                </dependency>-->
+        <!--               <dependency>
+                            <groupId>org.hamcrest</groupId>
+                            <artifactId>hamcrest-library</artifactId>
+                            <version>${hamcrest-library.version}</version>
+                            <scope>test</scope>
+                        </dependency>-->
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>${assertj.version}</version>
-            <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>${rest.assured.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest.assured.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.xml.bind</groupId>
+                    <artifactId>jaxb-impl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <!--        <dependency>
                     <groupId>io.qameta.allure</groupId>
                     <artifactId>allure-selenide</artifactId>
@@ -62,13 +80,11 @@
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>
             <version>${allure-junit5.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-java-commons</artifactId>
             <version>${allure.java.commons.vesion}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.squareup.retrofit2</groupId>
@@ -85,6 +101,13 @@
             <artifactId>selenide</artifactId>
             <version>${selenide.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.surefire/surefire-junit-platform -->
+        <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-junit-platform</artifactId>
+            <version>2.22.1</version>
+        </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -195,6 +218,7 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.1</version>
                 <configuration>
@@ -208,7 +232,35 @@
                     </properties>
                 </configuration>
             </plugin>
-
+            <!--  <plugin>
+          <groupId>de.qaware.maven</groupId>
+          <artifactId>go-offline-maven-plugin</artifactId>
+          <version>1.2.8</version>
+          <configuration>
+              <dynamicDependencies>
+                  <DynamicDependency>
+                      <groupId>org.apache.maven.surefire</groupId>
+                      <artifactId>surefire-junit5</artifactId>
+                      <version>2.22.1</version>
+                      <repositoryType>PLUGIN</repositoryType>
+                  </DynamicDependency>
+                  <DynamicDependency>
+                      <groupId>com.querydsl</groupId>
+                      <artifactId>querydsl-apt</artifactId>
+                      <version>4.2.1</version>
+                      <classifier>jpa</classifier>
+                      <repositoryType>MAIN</repositoryType>
+                  </DynamicDependency>
+                  <DynamicDependency>
+                      <groupId>org.flywaydb</groupId>
+                      <artifactId>flyway-commandline</artifactId>
+                      <version>4.0.3</version>
+                      <type>zip</type>
+                      <repositoryType>MAIN</repositoryType>
+                  </DynamicDependency>
+              </dynamicDependencies>
+          </configuration>
+      </plugin>-->
         </plugins>
     </build>
 

@@ -79,6 +79,7 @@ Selenide.open();*/
     }
 
     private void localDriverSetup(String requiredBrowserName) {
+        Configuration.headless = cfg.isSelenideHeadless( );
         Configuration.browser = requiredBrowserName;
         Configuration.startMaximized = true;
         // ConfigMappingBase;

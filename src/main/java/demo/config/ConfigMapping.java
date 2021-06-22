@@ -17,6 +17,10 @@ import org.aeonbits.owner.Config.Sources;
 })
 public interface ConfigMapping extends Config {
 
+    @Key("selenide.isheadless")
+    @DefaultValue("false")
+    Boolean isSelenideHeadless();
+
     @Key("psql.host")
     String postgresqlHost();
 

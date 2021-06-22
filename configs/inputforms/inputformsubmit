@@ -1,0 +1,12 @@
+#Below are properties for input form submit
+first.name=Selenide
+last.name=awesome
+email=Selenide@awesome.com
+phone=100
+address=Selinde street
+city=Selenide city 
+state=Alabama
+zipcode=000
+website.domain=selenide.com
+project.description=tru selenide is aweosme 
+
