@@ -1,8 +1,0 @@
-version: '3'
-services:
-  automatione2e:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    volumes:
-      - /root/.m2/

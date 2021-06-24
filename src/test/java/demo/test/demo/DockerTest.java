@@ -6,6 +6,6 @@ public class DockerTest {
 
     @Test
     public void test() {
-        System.out.println("ThIS IS DUMMY");
+        System.out.println("ThIS IS DUMMY YES");
     }
 }

@@ -3,7 +3,7 @@ RUN apt-get update
 RUN curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /chrome.deb
 RUN dpkg -i /chrome.deb || apt-get install -yf
 RUN rm /chrome.deb
-
+#RUN apt-get install -y allure
 
 #RUN mvn clean
 
@@ -15,6 +15,7 @@ COPY ./driver /usr/AutomationE2E/driver
 COPY ./configs /usr/AutomationE2E/configs
 
 RUN mvn clean test -Dtest=DockerTest
+#RUN CHMOD -R 777  /usr/AutomationE2E/
 
 
 #dowmloaf and install a dependency if required
@@ -24,4 +25,5 @@ RUN mvn clean test -Dtest=DockerTest
 #as a contianer
 
 
-CMD ["mvn","-o", "clean" ,"test" ,"-Dtest=SimpleFormDemoTest" ,"-Dselenide.browser=chrome" ,"-Dselenide.isheadless=true"]
+CMD ["mvn","-o", "clean" ,"test" ,"-Dtest=Junit5Assertionest" ,"-Dselenide.browser=chrome" ,"-Dselenide.isheadless=true"]
+#CMD ["mvn","-o", "clean" ,"test"  ,"-Dselenide.browser=chrome" ,"-Dselenide.isheadless=true"]

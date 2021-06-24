@@ -213,8 +213,8 @@
                 <artifactId>allure-maven</artifactId>
                 <version>${allure-maven.version}</version>
                 <configuration>
-                    <reportDirectory>${basedir}/allure-report</reportDirectory>
-                    <resultsDirectory>../allure-results</resultsDirectory>
+                    <reportDirectory>/allure-report</reportDirectory>
+                    <resultsDirectory>/allure-results</resultsDirectory>
                 </configuration>
             </plugin>
             <plugin>

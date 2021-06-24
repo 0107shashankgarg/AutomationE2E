@@ -46,3 +46,4 @@ RUN mvn clean test -Dtest=DockerTest
 CMD ["mvn","-o", "clean" ,"test" ,"-Dtest=CheckBoxTest" ,"-Dselenide.browser=chrome" ,"-Dselenide.isheadless=true"]
 
 
+
