@@ -1,0 +1,21 @@
+#Single docker compose to make a build and run the command as per docker file
+# allure is the docker volume I am mounting for reports and this docker file has a headless chrome execution only
+
+#Execution command :docker-compose -f docker-compose.local.yml up --build  --remove-orphans
+
+version: '3'
+services:
+  automatione2e:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - allure:/usr/AutomationE2E/allure-results:rw
+volumes:
+  allure:
+
+
+
+
+
+

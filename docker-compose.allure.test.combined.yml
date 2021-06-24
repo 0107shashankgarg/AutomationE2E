@@ -1,0 +1,37 @@
+#just a combination of docker-compose.local.yml  and docker-compose.allure.yml
+
+#Execution command
+
+# if u want to rebuild the image: docker-compose -f docker-compose.allure.test.combined.yml up --build  --remove-orphans
+# without rebuild : docker-compose -f docker-compose.allure.test.combined.yml up --remove-orphans
+# to run with allure : docker-compose --profile allure -f docker-compose.allure.test.combined.yml up  --build  --remove-orphans
+
+version: '3.9'
+
+services:
+  automatione2e:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - allure:/usr/AutomationE2E/allure-results:rw
+
+  allure:
+    image: "frankescobar/allure-docker-service"
+    profiles: ["allure"]
+    user: root:root
+    environment:
+      CHECK_RESULTS_EVERY_SECONDS: 10
+      KEEP_HISTORY: 5
+    ports:
+      - "5050:5050"
+    #way to map local path as volume
+    #      volumes:
+    #        - ${PWD}/allure-results:/app/allure-results
+    #        - ${PWD}/allure-reports:/app/default-reports
+    #way to map dockee volume path as volume
+    volumes:
+      - allure:/app/allure-results
+      - allure:/app/default-reports
+volumes:
+  allure:
