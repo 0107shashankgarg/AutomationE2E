@@ -13,15 +13,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    command: mvn -o clean test -Dtest=SimpleFormDemoTest -Dselenide.browser=chrome -Dselenide.isheadless=true
     volumes:
       - allure:/usr/AutomationE2E/allure-results:rw
 
   allure:
+    #To view the report: http://localhost:5050/allure-docker-service/projects/default/reports/latest/index.html
     image: "frankescobar/allure-docker-service"
-    profiles: ["allure"]
+    profiles: ["allure"]   # this is for starting allure specifically
+    #docker-compose --profile allure -f docker-compose.allure.test.combined.yml up  --build  --remove-orphans
     user: root:root
     environment:
-      CHECK_RESULTS_EVERY_SECONDS: 10
+      CHECK_RESULTS_EVERY_SECONDS: 300
       KEEP_HISTORY: 5
     ports:
       - "5050:5050"

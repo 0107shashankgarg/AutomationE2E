@@ -10,11 +10,10 @@ import org.junit.jupiter.api.parallel.Execution;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
+import static org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT;
 
 
 /**
- * Configuration parameters to execute top-level classes in parallel but methods in same thread
  * Configuration parameters to execute top-level classes in parallel but methods in same thread
  * junit.jupiter.execution.parallel.enabled = true
  * junit.jupiter.execution.parallel.mode.default = same_thread
@@ -43,7 +42,7 @@ import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
  */
 
 
-@Execution(SAME_THREAD)
+@Execution(CONCURRENT)
 @DisplayNameGeneration(HumanizeNameWithTestCaseId.class)
 public class Junit5ParallelTest {
 

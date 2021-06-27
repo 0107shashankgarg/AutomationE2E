@@ -1,3 +1,6 @@
+#http://localhost:4444/wd/hub/
+#http://localhost:4444/status
+#can support upto 5 parallel execution
 version: '3'
 services:
   selenoid:
@@ -18,6 +21,10 @@ services:
     #command: ["-conf", "/etc/selenoid/browsers.json", "-video-output-dir", "/opt/selenoid/video", "-container-network", "selenoid"]
     #command: ["-conf", "/etc/selenoid/browsers.json", "-video-output-dir", "/opt/selenoid/video"]
     command: ["-conf", "/etc/selenoid/browsers.json"]
+
+  chrome:
+    image: selenoid/vnc:chrome_90.0
+
   selenoid-ui:
     image: "aerokube/selenoid-ui:latest"
     network_mode: bridge
@@ -28,43 +35,8 @@ services:
       - selenoid
     ports:
       - "8080:8080"
-      #networks:
-      #- selenoid
     command: ["--selenoid-uri", "http://selenoid:4444"]
-      #chrome_83.0:
-      #image: "selenoid/vnc:chrome_83.0"
-      #network_mode: bridge
-      #container_name: chrome_83.0
-      #links:
-      #- selenoid
-      #- selenoid-ui
-      #depends_on:
-      #- selenoid
-      #- selenoid-ui
-      #networks:
-      #- selenoid
-      #volumes:
-      #- "/dev/shm:/dev/shm"
-      #networks:
-      #selenoid:
-    #external:
-    #name: selenoid
-  automatione2e:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - allure:/usr/AutomationE2E/allure-results
-    links:
-      - selenoid
-      #- selenoid-ui
-    depends_on:
-      - selenoid
-      #- selenoid-ui
-    environment:
-      - BROWSER=chrome
-      - REMOTE=http://host.docker.internal:4444/wd/hub
-    command:  mvn -o clean test -Dremote.driver.url=http://host.docker.internal:4444/wd/hub -Dis.remote=true -Dtest=SimpleFormDemoTest -Dselenide.browser=chrome
+
   allure:
     #To view the report: http://localhost:5050/allure-docker-service/projects/default/reports/latest/index.html
     image: "frankescobar/allure-docker-service"
@@ -76,7 +48,5 @@ services:
     ports:
       - "5050:5050"
     volumes:
-      - allure:/app/allure-results
-      - allure:/app/default-reports
-volumes:
-  allure:
+      - ${PWD}/allure-results:/app/allure-results
+      - ${PWD}/allure-reports:/app/default-reports

@@ -52,10 +52,10 @@ public class WebDriverExtension implements BeforeEachCallback, AfterEachCallback
         Configuration.screenshots = false;
         Configuration.timeout = TIMEOUT;
 
-        if ( cfg.isRemote( ) ) {
-            webDriver = initRemoteDriver(browser, testName, true);
-        } else {
 
+        if ( cfg.isRemote( ) )
+            localSelenide( );
+        else
             localDriverSetup(browser);
 
 
@@ -76,17 +76,45 @@ Selenide.open();*/
 
         }
         // WebDriverRunner.setWebDriver(getWebDriver());
-    }
+
 
     private void localDriverSetup(String requiredBrowserName) {
+
         Configuration.headless = cfg.isSelenideHeadless( );
         Configuration.browser = requiredBrowserName;
         Configuration.startMaximized = true;
-        // ConfigMappingBase;
-        //  WebDriverRunner.setWebDriver(getWebDriver());
+
 
     }
 
+    private void localSelenide() {
+
+    /*     docker run -d                                 \
+        --name selenoid                                 \
+        -p 4444:4444                                    \
+        -v /var/run/docker.sock:/var/run/docker.sock    \
+        -v ${PWD}/browser :/etc/selenoid/:ro              \
+        -v ${PWD}/video/:/opt/selenoid/video/            \
+        -e OVERRIDE_VIDEO_OUTPUT_DIR=/your/directory/video/       \
+        aerokube/selenoid:latest-release
+
+
+     */
+        LOG.info("the remoter url we are trying to hit is :" + cfg.remoteDriverUrl( ));
+        Configuration.remote = cfg.remoteDriverUrl( );
+        Configuration.reportsFolder = "target/surefire-reports";
+        Configuration.downloadsFolder = "target/downloads";
+
+
+        DesiredCapabilities capabilities = new DesiredCapabilities( );
+        // capabilities.setBrowserName("chrome");
+        //  capabilities.setVersion("86.0");
+        capabilities.setCapability("enableVNC", false);
+        capabilities.setCapability("enableVideo", false);
+        capabilities.setCapability("screenResolution", RESOLUTION_FULL_HD);
+        capabilities.setCapability("enableLog", true);
+        Configuration.browserCapabilities = capabilities;
+    }
 
     private RemoteWebDriver initRemoteDriver(String browser, String testName, boolean retryIfError) {
         DesiredCapabilities capability = new DesiredCapabilities( );
