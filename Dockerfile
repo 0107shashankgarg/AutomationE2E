@@ -25,5 +25,8 @@ RUN mvn clean test -Dtest=DockerTest
 #as a contianer
 
 
-CMD ["mvn","-o", "clean" ,"test" ,"-Dtest=Junit5Assertionest" ,"-Dselenide.browser=chrome" ,"-Dselenide.isheadless=true"]
+
+#these are command one can use if not passing via docker compose
+#CMD ["mvn","-o", "clean" ,"test" ,"-Dtest=Junit5Assertionest" ,"-Dselenide.browser=chrome" ,"-Dselenide.isheadless=true"]
+#CMD mvn -o clean test -Dremote.driver.url=$REMOTE -Dis.remote=true -Dtest=SimpleFormDemoTest -Dselenide.browser=chrome
 #CMD ["mvn","-o", "clean" ,"test"  ,"-Dselenide.browser=chrome" ,"-Dselenide.isheadless=true"]

@@ -11,6 +11,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - allure:/usr/AutomationE2E/allure-results:rw
+  command: mvn -o clean test -Dtest=SimpleFormDemoTest -Dselenide.browser=chrome -Dselenide.isheadless=true
 volumes:
   allure:
 

@@ -54,7 +54,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - allure:/usr/AutomationE2E/allure-results:rw
+      - allure:/usr/AutomationE2E/allure-results
     links:
       - selenoid
       #- selenoid-ui
@@ -63,13 +63,15 @@ services:
       #- selenoid-ui
     environment:
       - BROWSER=chrome
-      - SELENIUMHUB=host.docker.internal:4444/wd/hub
+      - REMOTE=http://host.docker.internal:4444/wd/hub
+    command:  mvn -o clean test -Dremote.driver.url=http://host.docker.internal:4444/wd/hub -Dis.remote=true -Dtest=SimpleFormDemoTest -Dselenide.browser=chrome
   allure:
     #To view the report: http://localhost:5050/allure-docker-service/projects/default/reports/latest/index.html
     image: "frankescobar/allure-docker-service"
     user: root:root
+    profiles: [allure]
     environment:
-      CHECK_RESULTS_EVERY_SECONDS: 1
+      CHECK_RESULTS_EVERY_SECONDS: 300
       KEEP_HISTORY: 10
     ports:
       - "5050:5050"

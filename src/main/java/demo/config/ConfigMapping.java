@@ -8,12 +8,12 @@ import org.aeonbits.owner.Config.Sources;
 
 @LoadPolicy(LoadType.MERGE)
 @Sources({
-        "file:${user.dir}/config.properties",
-        "file:${user.dir}/config/config.properties",
-        "file:${user.dir}/user.properties",
-        "file:${user.dir}/config/user.properties",
+        //    "file:${user.dir}/config.properties",
+        //   "file:${user.dir}/config/config.properties",
+        //   "file:${user.dir}/user.properties",
+        //   "file:${user.dir}/config/user.properties",
         "classpath:config.properties",
-        "classpath:user.properties",
+        // "classpath:user.properties",
 })
 public interface ConfigMapping extends Config {
 
@@ -44,9 +44,16 @@ public interface ConfigMapping extends Config {
     @DefaultValue("false")
     boolean isRemote();
 
+    @Key("runOnSelenoid")
+    @DefaultValue("false")
+    boolean runOnSelenoid();
+
+
+
     @Key("selenide.browser")
     @DefaultValue("chrome")
     String selenideBrowser();
+
 
     @Key("remote.driver.url")
     String remoteDriverUrl();
